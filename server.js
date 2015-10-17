@@ -51,9 +51,8 @@ io.sockets.on('connection', function(socket) {
   socket.on('ball-slap', function(nextPosition) { // Num
     Whiz.onBallSlap(nextPosition);
   });
-
 });
 
 io.sockets.on('disconnection', function(socket) {
-  Whiz.clientsCount = Whiz.clientsCount + 1;
+  Whiz.clientsCount = Whiz.clientsCount - 1;
 });
