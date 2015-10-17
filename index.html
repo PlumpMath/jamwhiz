@@ -16,6 +16,7 @@
 		<div class="count">
 			Slaps: <span id="count"></span>
 		</div>
+		<h1 id="timesup"></h1>
 		<script type="text/javascript">
 			// gestur detection saved in a global variable
 	    var detectedDirection;
@@ -66,6 +67,7 @@
 					if (ballOptions.currentPosition == playerPosition) {
         		velocity = createVector(0.0,5.0);
 						setTimeout(function () {
+							document.getElementById('timesup').innerHTML = "GAME OVER";
 							timesUp();
 						}, ballOptions.timeToNextPosition)
 					} else {
