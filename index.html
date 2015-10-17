@@ -83,7 +83,7 @@
         background(77, 210, 255);
         if(position.y > 300 && position.y < 600){
           //this is the moment where you can hit the ball
-          if(detectedDirection == "Left" && isSlapped === true){
+          if(detectedDirection == "Left"){
             velocity.y = velocity.y + -0.3;
             velocity.x = velocity.x + -0.1;
             if(position.x < 20){
@@ -92,7 +92,7 @@
               isSlapped = true;
             }
           }
-          if(detectedDirection == "Right" && isSlapped === true){
+          if(detectedDirection == "Right"){
             velocity.y = velocity.y + -0.3;
             velocity.x = velocity.x + 0.1;
             if(position.x > 780){
@@ -103,7 +103,7 @@
           }
         } else if (position.y < 900 && isBallComing){
 					document.getElementById('timesup').innerHTML = "GAME OVER";
-					timesUp();
+					// timesUp();
 				}
 
         strokeWeight(1);
