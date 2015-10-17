@@ -67,9 +67,11 @@
 					 document.getElementById('timesup').innerHTML = "";
 					if (ballOptions.currentPosition == playerPosition) {
         		velocity = createVector(0.0,5.0);
+						isBallComing = true;
 					} else {
 						position = createVector(400, 0);
 						velocity = createVector(0.0,0.0);
+						isBallComing = false;
 					}
 				});
       }
@@ -92,7 +94,7 @@
           strokeWeight(2);
           fill(127);
           ellipse(position.x, position.y, 300, 300);
-        } else if (position.y < 900){
+        } else if (position.y < 900 && isBallComing){
 					document.getElementById('timesup').innerHTML = "GAME OVER";
 					timesUp();
 				}
