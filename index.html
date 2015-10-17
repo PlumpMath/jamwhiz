@@ -83,12 +83,16 @@
           if(detectedDirection == "Left"){
             velocity.y = velocity.y + -0.1;
             velocity.x = velocity.x + -0.1;
-            slapBall(positionPlayerLeft);
+            if(position.x < 20){
+              slapBall(positionPlayerLeft);
+            }
           }
           if(detectedDirection == "Right"){
             velocity.y = velocity.y + -0.1;
             velocity.x = velocity.x + 0.1;
-            slapBall(positionPlayerRight);
+            if(position.x > 780){
+              slapBall(positionPlayerRight);
+            }
           }
           strokeWeight(2);
           fill(127);
