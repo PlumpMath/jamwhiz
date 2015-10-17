@@ -24,8 +24,12 @@
 			gest.start();
 
       //socket stuff
+      var playersCount, playersPosition;
 			socketCommands();
-
+      onNewPlayer(function(playerPool){
+        playersCount = playerPool.playersCount,
+        playersPosition = playerPool.playerPosition;
+      });
       // animation
       var sun;
       function preload(){
@@ -42,6 +46,7 @@
       function draw() {
         position.add(velocity);
         console.log(detectedDirection);
+        console.log(playersCount);
         background(77, 210, 255);
 
         if(position.y > 400 && position.y < 600){
