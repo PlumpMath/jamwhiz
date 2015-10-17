@@ -68,7 +68,9 @@
 						setTimeout(function () {
 							timesUp();
 						}, ballOptions.timeToNextPosition)
-					}
+					} else {
+						position = createVector(400, 0);
+						velocity = createVector(0.0,0.0);
 				});
       }
 

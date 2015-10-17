@@ -47,11 +47,15 @@ var Whiz = {
   }
 };
 
+_.delay(function () {
+  Whiz.changeBall(1);
+},500);
+
 io.sockets.on('connection', function(socket) {
   var socketId = socket.id;
   Whiz.clientsCount = Whiz.clientsCount + 1;
   Whiz.clientsArray.push(socket.id);
-  Whiz.changeBall(1);
+
   console.log('--------')
   _.each(Whiz.clientsArray, function (clientId) {
     // console.log(socket.id == clientId);
