@@ -41,6 +41,7 @@ var Whiz = {
   },
   onTimesUp: function () {
     console.log('Times Up!');
+    Whiz.slapsCount = 0;
     io.sockets.emit('wait-for-restart', Whiz.timeToNewGame) // time
   }
 };
