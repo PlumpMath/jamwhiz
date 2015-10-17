@@ -92,12 +92,6 @@
               console.log("slapped left");
               slapBall(positionPlayerLeft);
 							isBallComing = false;
-              ///////////////////////////
-              // Sound
-              song.stop();
-              slapSound.play();
-              song.play();
-              isSlapped = true;
             }
           }
           if(detectedDirection == "Right"){
@@ -108,21 +102,14 @@
               console.log("slapped right");
               slapBall(positionPlayerRight);
 							isBallComing = false;
-              /////////////////////////////
-              // Sound
-              song.stop();
-              slapSound.play();
-              song.play();
-
-              isSlapped = true;
             }
           }
           strokeWeight(1);
           fill('red');
           ellipse(position.x, position.y, 200, 200);
         } else if (position.y < 800 && isBallComing){
-					document.getElementById('timesup').innerHTML = "GAME OVER";
-					timesUp();
+					// document.getElementById('timesup').innerHTML = "GAME OVER";
+					// timesUp();
 				}
 
         animation(sun,position.x, position.y);
