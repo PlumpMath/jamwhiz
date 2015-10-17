@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<title></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="js/websockets.js"></script>
+</head>
+<body>
+
+<script>
+(function() {
+
+//////////////////////////////////////////
+// WS.connect connects to server and loads code files
+$WS.connect("ws://whizjam.grmmph.com:4000/socket", "{{ .xsrfdata }}", function() {
+
+    console.log("Websockets connected!");
+});
+
+})();
+</script>
+
