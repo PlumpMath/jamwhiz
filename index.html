@@ -8,7 +8,6 @@
 		<script src="/client/js/gest.min.js"></script>
 		<script src="/client/js/p5.min.js"></script>
 		<script src="/client/js/p5.play.js"></script>
-		<script src="/client/js/p5.sound.js"></script>
 		<script src="/socket.io/socket.io.js" type="text/javascript"></script>
 		<script src="/client/js/socketCommands.js"></script>
 	</head>
@@ -53,23 +52,11 @@
       });
 
       // animation
-      var sun,
-		  slapSound;
+      var sun;
       function preload(){
         sun = loadAnimation("/img/sun1.png","/img/sun2.png","/img/sun3.png");
-
-		//////////////////////
-		// Sound
-		slapSound = loadSound("/audio/smash.mp3");
-		song = loadSound("/audio/song2.mp3");
       }
-
-      function setup(){
-		///////////////////////
-		// Sound
-		slapSound.setVolume(1.0);
-		song.setVolume(0.2);
-		song.play();
+      function setup() {
 
         createCanvas(800, 600);
         background(77, 210, 255);
@@ -116,8 +103,6 @@
             console.log("right wtf");
             velocity.y = velocity.y + -0.3;
             velocity.x = velocity.x + 0.3;
-
-
             if(position.x > 780){
               console.log("slapped right");
               slapBall(positionPlayerRight);

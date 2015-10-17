@@ -25,10 +25,10 @@ var Whiz = {
     return Whiz.clientsArray.lastIndexOf(socketId) + 1;
   },
   onBallSlap: function (nextPosition) {
-    console.log('ball Slapped to ' + nextPosition);
     Whiz.changeBall(nextPosition);
   },
   changeBall: function (nextPosition) {
+    console.log('ball now at ' +nextPosition)
     Whiz.slapsCount = Whiz.slapsCount + 1;
 
     io.sockets.emit('ball-changed', {
@@ -50,7 +50,7 @@ var Whiz = {
 
 _.delay(function () {
   Whiz.changeBall(1);
-},500);
+},1000);
 
 io.sockets.on('connection', function(socket) {
   var socketId = socket.id;
