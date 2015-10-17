@@ -13,6 +13,9 @@
 	</head>
 
 	<body>
+		<div class="count">
+			Slaps: <span id="count"></span>
+		</div>
 		<script type="text/javascript">
 			// gestur detection saved in a global variable
 	    var detectedDirection;
@@ -46,6 +49,7 @@
 				onBallChanged(function(ballOptions) {
 					 console.log('cur:' + ballOptions.currentPosition);
 					 console.log('pos:' + playerPosition);
+					 document.getElementById('count').innerHTML = ballOptions.count;
 					if (ballOptions.currentPosition == playerPosition) {
         		velocity = createVector(0.0,5.0);
 						setTimeout(function () {
