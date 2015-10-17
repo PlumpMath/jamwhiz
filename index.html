@@ -14,6 +14,10 @@
 	</head>
 
 	<body>
+		<div class="count">
+			Slaps: <span id="count"></span>
+		</div>
+		<h1 id="timesup"></h1>
 		<script type="text/javascript">
 			// gestur detection saved in a global variable
 	    var detectedDirection;
@@ -25,13 +29,28 @@
 			gest.start();
 
       //socket stuff
-      var playersCount, playersPosition;
+      var playersCount, playerPosition, positionPlayerLeft, positionPlayerRight;
+			var isBallComing = false;
 			socketCommands();
+
       onNewPlayer(function(playerPool){
         playersCount = playerPool.playersCount,
-        playersPosition = playerPool.playerPosition;
-		slapSound.play();
+        playerPosition = playerPool.playerPosition;
+        // player right position
+        if(playerPosition === playersCount){
+          positionPlayerRight = 1;
+        }else{
+          positionPlayerRight = playerPosition + 1;
+        }
+        //player left position
+        if(playerPosition === 1){
+          positionPlayerLeft = playersCount;
+        }else{
+          positionPlayerLeft = playerPosition - 1;
+        }
+				console.log('my position' + playerPosition);
       });
+
       // animation
       var sun,
 		  slapSound;
@@ -54,16 +73,26 @@
         createCanvas(800, 600);
         background(77, 210, 255);
         position = createVector(400,0);
-        velocity = createVector(0.0,0.4);
+        velocity = createVector(0.0,0.0);
+				onBallChanged(function(ballOptions) {
+					 console.log('cur:' + ballOptions.currentPosition);
+					 document.getElementById('count').innerHTML = ballOptions.count;
+					 document.getElementById('timesup').innerHTML = "";
+					if (ballOptions.currentPosition == playerPosition) {
+        		velocity = createVector(0.0,5.0);
+						isBallComing = true;
+					} else {
+						position = createVector(400, 0);
+						velocity = createVector(0.0,0.0);
+						isBallComing = false;
+					}
+				});
       }
 
       function draw() {
         position.add(velocity);
-        // console.log(detectedDirection);
-        // console.log(playersCount);
         background(77, 210, 255);
-
-        if(position.y > 400 && position.y < 600){
+        if(position.y > 300 && position.y < 600){
           //this is the moment where you can hit the ball
           if(detectedDirection == "Left"){
             velocity.y = velocity.y + -0.1;
@@ -74,6 +103,8 @@
 			song.stop();
 			slapSound.play();
 			song.play();
+
+			slapBall(positionPlayerLeft);
           }
           if(detectedDirection == "Right"){
             velocity.y = velocity.y + -0.1;
@@ -84,11 +115,16 @@
 			song.stop();
 			slapSound.play();
 			song.play();
+
+			slapBall(positionPlayerRight);
           }
           strokeWeight(2);
           fill(127);
           ellipse(position.x, position.y, 300, 300);
-        }
+        } else if (position.y < 900 && isBallComing){
+					document.getElementById('timesup').innerHTML = "GAME OVER";
+					timesUp();
+				}
 
         animation(sun,position.x, position.y);
       }
