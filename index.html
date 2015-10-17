@@ -101,14 +101,14 @@
               isSlapped = true;
             }
           }
+          strokeWeight(1);
+          fill('red');
+          ellipse(position.x, position.y, 200, 200);
         } else if (position.y < 900 && isBallComing){
 					document.getElementById('timesup').innerHTML = "GAME OVER";
 					timesUp();
 				}
 
-        strokeWeight(1);
-        fill('red');
-        ellipse(position.x, position.y, 200, 200);
         animation(sun,position.x, position.y);
       }
 		</script>
