@@ -21,6 +21,7 @@ var Whiz = {
   timeBetweenSlaps: 1000,
   timeToNewGame: 1000,
   getPlayerPosition: function (socketId) {
+    // console.log(Whiz.clientsArray.lastIndexOf(socketId) + 1);
     return Whiz.clientsArray.lastIndexOf(socketId) + 1;
   },
   onBallSlap: function (nextPosition) {
@@ -50,12 +51,18 @@ io.sockets.on('connection', function(socket) {
   var socketId = socket.id;
   Whiz.clientsCount = Whiz.clientsCount + 1;
   Whiz.clientsArray.push(socket.id);
+  Whiz.changeBall(1);
+  console.log('--------')
+  _.each(Whiz.clientsArray, function (clientId) {
+    // console.log(socket.id == clientId);
+    console.log(clientId)
+    console.log(Whiz.clientsArray.lastIndexOf(clientId) + 1);
+    io.sockets.connected[clientId].emit('new-player', {
+      playersCount: Whiz.clientsCount,
+      playerPosition: Whiz.getPlayerPosition(clientId)
+    });
+  })
 
-  console.log(Whiz.getPlayerPosition(socket.id));
-  socket.emit('new-player', {
-    playersCount: Whiz.clientsCount,
-    playerPosition: Whiz.getPlayerPosition(socket.id)
-  });
 
   socket.on('ball-slap', function(nextPosition) { // Num
     Whiz.onBallSlap(nextPosition);

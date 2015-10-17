@@ -30,6 +30,7 @@
       var playersCount, playerPosition, positionPlayerLeft, positionPlayerRight;
 			var isBallComing = false;
 			socketCommands();
+
       onNewPlayer(function(playerPool){
         playersCount = playerPool.playersCount,
         playerPosition = playerPool.playerPosition;
@@ -41,10 +42,11 @@
         }
         //player left position
         if(playerPosition === 1){
-          positionPlayerLeft = PlayersCount;
+          positionPlayerLeft = playersCount;
         }else{
           positionPlayerLeft = playerPosition - 1;
         }
+				console.log('my position' + playerPosition);
       });
 
       // animation
@@ -60,7 +62,6 @@
         velocity = createVector(0.0,0.0);
 				onBallChanged(function(ballOptions) {
 					 console.log('cur:' + ballOptions.currentPosition);
-					 console.log('pos:' + playerPosition);
 					 document.getElementById('count').innerHTML = ballOptions.count;
 					if (ballOptions.currentPosition == playerPosition) {
         		velocity = createVector(0.0,5.0);
