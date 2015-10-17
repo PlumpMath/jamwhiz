@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var socket = require('socket.io');
+var _ = require('underscore');
 var server = app.listen(9004);
 var io = socket.listen(server);
 
@@ -14,13 +15,13 @@ app.use(express.static(__dirname + "/client"));
 
 var Whiz = {
   clientsCount: 0,
+  clientsArray: [],
   ballPosition: 0,
   slapsCount: 0,
   timeBetweenSlaps: 1000,
   timeToNewGame: 1000,
-  getNewPlayerPosition: function () {
-    console.log('New player in poisition ' + Whiz.clientsCount);
-    return Whiz.clientsCount;
+  getPlayerPosition: function (socketId) {
+    return Whiz.clientsArray.lastIndexOf(socketId) + 1;
   },
   onBallSlap: function (nextPosition) {
     console.log('ball Slapped to ' + nextPosition);
@@ -45,14 +46,23 @@ var Whiz = {
 };
 
 io.sockets.on('connection', function(socket) {
+  var socketId = socket.id;
   Whiz.clientsCount = Whiz.clientsCount + 1;
-  socket.emit('new-player', Whiz.getNewPlayerPosition());
+  Whiz.clientsArray.push(socket.id);
+
+  console.log(Whiz.getPlayerPosition(socket.id));
+  socket.emit('new-player', {
+    playersCount: Whiz.clientsCount,
+    playerPosition: Whiz.getPlayerPosition(socket.id)
+  });
 
   socket.on('ball-slap', function(nextPosition) { // Num
     Whiz.onBallSlap(nextPosition);
   });
-});
 
-io.sockets.on('disconnection', function(socket) {
-  Whiz.clientsCount = Whiz.clientsCount - 1;
+  socket.on('disconnect', function() {
+    Whiz.clientsCount = Whiz.clientsCount - 1;
+    console.log('client disconnected!');
+    Whiz.clientsArray = _.without(Whiz.clientsArray, socket.id);
+  });
 });
