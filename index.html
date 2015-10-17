@@ -91,6 +91,7 @@
             if(position.x < 20){
               console.log("slapped left");
               slapBall(positionPlayerLeft);
+							isBallComing = false;
               ///////////////////////////
               // Sound
               song.stop();
@@ -103,9 +104,10 @@
             console.log("right wtf");
             velocity.y = velocity.y + -0.3;
             velocity.x = velocity.x + 0.3;
-            if(position.x > 780){
+            if(position.x > 400){
               console.log("slapped right");
               slapBall(positionPlayerRight);
+							isBallComing = false;
               /////////////////////////////
               // Sound
               song.stop();
@@ -118,7 +120,7 @@
           strokeWeight(1);
           fill('red');
           ellipse(position.x, position.y, 200, 200);
-        } else if (position.y < 900 && isBallComing){
+        } else if (position.y < 800 && isBallComing){
 					document.getElementById('timesup').innerHTML = "GAME OVER";
 					timesUp();
 				}

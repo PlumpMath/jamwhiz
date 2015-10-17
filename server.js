@@ -48,15 +48,17 @@ var Whiz = {
   }
 };
 
-_.delay(function () {
-  Whiz.changeBall(1);
-},1000);
+var gameStarted = false;
 
 io.sockets.on('connection', function(socket) {
   var socketId = socket.id;
   Whiz.clientsCount = Whiz.clientsCount + 1;
   Whiz.clientsArray.push(socket.id);
 
+  _.delay(function () {
+    gameStarted = true;
+    Whiz.changeBall(1);
+  },1000);
   console.log('--------')
   _.each(Whiz.clientsArray, function (clientId) {
     // console.log(socket.id == clientId);
