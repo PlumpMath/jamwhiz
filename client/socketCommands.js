@@ -14,9 +14,7 @@ function onBallChanged(cb) {
 }
 
 function timesUp(player) {
-	socket.emit('times-up', {
-		player: player
-	);
+	socket.emit('times-up', player);
 }
 
 function slapBall(nextPos) {

@@ -13,7 +13,6 @@
 	</head>
 
 	<body>
-		<!-- diplay events on screen for DEMO purposes -->
 		<script type="text/javascript">
 			// gestur detection saved in a global variable
 	    var detectedDirection;
@@ -23,29 +22,49 @@
 				}
       });
 			gest.start();
-			socketCommands();
 
+      //socket stuff
+      var playersCount, playersPosition;
+			socketCommands();
+      onNewPlayer(function(playerPool){
+        playersCount = playerPool.playersCount,
+        playersPosition = playerPool.playerPosition;
+      });
+      // animation
+      var sun;
+      function preload(){
+        sun = loadAnimation("/img/sun1.png","/img/sun2.png","/img/sun3.png");
+      }
 
       function setup(){
         createCanvas(800, 600);
-        background(255);
-        position = createVector(100,100);
-        velocity = createVector(0.1,0.1);
+        background(77, 210, 255);
+        position = createVector(400,0);
+        velocity = createVector(0.0,0.4);
       }
 
       function draw() {
         position.add(velocity);
         console.log(detectedDirection);
-        if(detectedDirection == "Left"){
-          velocity.x = velocity.x * +1;
+        console.log(playersCount);
+        background(77, 210, 255);
+
+        if(position.y > 400 && position.y < 600){
+          //this is the moment where you can hit the ball
+          if(detectedDirection == "Left"){
+            velocity.y = velocity.y + -0.1;
+            velocity.x = velocity.x + -0.1;
+          }
+          if(detectedDirection == "Right"){
+            velocity.y = velocity.y + -0.1;
+            velocity.x = velocity.x + 0.1;
+          }
+          strokeWeight(2);
+          fill(127);
+          ellipse(position.x, position.y, 300, 300);
         }
-        if(detectedDirection == "Right"){
-          velocity.x = velocity.x * -1;
-        }
-        stroke(0);
-        strokeWeight(2);
-        fill(127);
-        ellipse(position.x, position.y, 48, 48);
+
+        animation(sun,position.x, position.y);
       }
 		</script>
 	</body>
