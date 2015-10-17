@@ -65,16 +65,15 @@
 				onBallChanged(function(ballOptions) {
 					 console.log('cur:' + ballOptions.currentPosition);
 					 document.getElementById('count').innerHTML = ballOptions.count;
+					 document.getElementById('timesup').innerHTML = "";
 					if (ballOptions.currentPosition == playerPosition) {
         		velocity = createVector(0.0,5.0);
-						setTimeout(function () {
-							document.getElementById('timesup').innerHTML = "GAME OVER";
-							timesUp();
-						}, ballOptions.timeToNextPosition)
+						isBallComing = true;
 					} else {
             isSlapped = false;
 						position = createVector(400, 0);
 						velocity = createVector(0.0,0.0);
+						isBallComing = false;
 					}
 				});
       }
@@ -102,11 +101,14 @@
               isSlapped = true;
             }
           }
-          strokeWeight(1);
-          fill('red');
-          ellipse(position.x, position.y, 200, 200);
-        }
+        } else if (position.y < 900 && isBallComing){
+					document.getElementById('timesup').innerHTML = "GAME OVER";
+					timesUp();
+				}
 
+        strokeWeight(1);
+        fill('red');
+        ellipse(position.x, position.y, 200, 200);
         animation(sun,position.x, position.y);
       }
 		</script>

@@ -18,7 +18,7 @@ var Whiz = {
   clientsArray: [],
   ballPosition: 0,
   slapsCount: 0,
-  timeBetweenSlaps: 2000,
+  timeBetweenSlaps: 8000,
   timeToNewGame: 1000,
   getPlayerPosition: function (socketId) {
     // console.log(Whiz.clientsArray.lastIndexOf(socketId) + 1);
@@ -44,6 +44,7 @@ var Whiz = {
     console.log('Times Up!');
     Whiz.slapsCount = 0;
     io.sockets.emit('wait-for-restart', Whiz.timeToNewGame) // time
+    Whiz.changeBall(1)
   }
 };
 
