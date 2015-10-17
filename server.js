@@ -11,3 +11,7 @@ app.get('/', function(request, response){
 
 app.use(express.static(__dirname));
 app.use(express.static(__dirname + "/client"));
+
+io.sockets.on('connection', function(socket) {
+  console.log('connection!!');
+});
