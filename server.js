@@ -50,7 +50,7 @@ var Whiz = {
 
 _.delay(function () {
   Whiz.changeBall(1);
-},500);
+},1000);
 
 io.sockets.on('connection', function(socket) {
   var socketId = socket.id;

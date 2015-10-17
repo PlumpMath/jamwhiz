@@ -85,7 +85,7 @@
           //this is the moment where you can hit the ball
           if(detectedDirection == "Left"){
             velocity.y = velocity.y + -0.3;
-            velocity.x = velocity.x + -0.1;
+            velocity.x = velocity.x -1;
             if(position.x < 20){
               console.log("slapped left");
               slapBall(positionPlayerLeft);
@@ -94,7 +94,7 @@
           }
           if(detectedDirection == "Right"){
             velocity.y = velocity.y + -0.3;
-            velocity.x = velocity.x + 0.1;
+            velocity.x = velocity.x + 1;
             if(position.x > 780){
               console.log("slapped right");
               slapBall(positionPlayerRight);
@@ -106,7 +106,7 @@
           ellipse(position.x, position.y, 200, 200);
         } else if (position.y < 900 && isBallComing){
 					document.getElementById('timesup').innerHTML = "GAME OVER";
-					// timesUp();
+					timesUp();
 				}
 
         animation(sun,position.x, position.y);
