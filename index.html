@@ -24,29 +24,36 @@
 			gest.start();
 
       //socket stuff
-      var playersCount, playersPosition;
+      var playersCount, playerPosition;
+			var isBallComing = false;
 			socketCommands();
       onNewPlayer(function(playerPool){
         playersCount = playerPool.playersCount,
-        playersPosition = playerPool.playerPosition;
+        playerPosition = playerPool.playerPosition;
       });
+
       // animation
       var sun;
       function preload(){
         sun = loadAnimation("/img/sun1.png","/img/sun2.png","/img/sun3.png");
       }
 
-      function setup(){
+      function setup() {
         createCanvas(800, 600);
         background(77, 210, 255);
         position = createVector(400,0);
-        velocity = createVector(0.0,0.4);
+        velocity = createVector(0.0,0.0);
+				onBallChanged(function(ballOptions) {
+					 console.log('cur:' + ballOptions.currentPosition);
+					 console.log('pos:' + playerPosition);
+					if (ballOptions.currentPosition == playerPosition) {
+        		velocity = createVector(0.0,5.0);
+					}
+				});
       }
 
       function draw() {
         position.add(velocity);
-        // console.log(detectedDirection);
-        // console.log(playersCount);
         background(77, 210, 255);
 
         if(position.y > 400 && position.y < 600){
