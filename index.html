@@ -24,12 +24,25 @@
 			gest.start();
 
       //socket stuff
-      var playersCount, playersPosition;
+      var playersCount, playerPosition, positionPlayerLeft, positionPlayerRight;
 			socketCommands();
       onNewPlayer(function(playerPool){
         playersCount = playerPool.playersCount,
-        playersPosition = playerPool.playerPosition;
+        playerPosition = playerPool.playerPosition;
+        // player right position
+        if(playerPosition === playersCount){
+          positionPlayerRight = 1;
+        }else{
+          positionPlayerRight = playerPosition + 1;
+        }
+        //player left position
+        if(playerPosition === 1){
+          positionPlayerLeft = PlayersCount;
+        }else{
+          positionPlayerLeft = playerPosition - 1;
+        }
       });
+
       // animation
       var sun;
       function preload(){
@@ -40,24 +53,23 @@
         createCanvas(800, 600);
         background(77, 210, 255);
         position = createVector(400,0);
-        velocity = createVector(0.0,0.4);
+        velocity = createVector(0.0,0.9);
       }
 
       function draw() {
         position.add(velocity);
-        console.log(detectedDirection);
-        console.log(playersCount);
         background(77, 210, 255);
-
         if(position.y > 400 && position.y < 600){
           //this is the moment where you can hit the ball
           if(detectedDirection == "Left"){
             velocity.y = velocity.y + -0.1;
             velocity.x = velocity.x + -0.1;
+            slapBall(positionPlayerLeft);
           }
           if(detectedDirection == "Right"){
             velocity.y = velocity.y + -0.1;
             velocity.x = velocity.x + 0.1;
+            slapBall(positionPlayerRight);
           }
           strokeWeight(2);
           fill(127);
