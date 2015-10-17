@@ -82,10 +82,12 @@
         position.add(velocity);
         background(77, 210, 255);
         if(position.y > 300 && position.y < 600){
+          console.log("wtf");
           //this is the moment where you can hit the ball
           if(detectedDirection == "Left"){
+            console.log("lefpt wtf");
             velocity.y = velocity.y + -0.3;
-            velocity.x = velocity.x + -0.1;
+            velocity.x = velocity.x -0.3;
             if(position.x < 20){
               console.log("slapped left");
               slapBall(positionPlayerLeft);
@@ -93,8 +95,9 @@
             }
           }
           if(detectedDirection == "Right"){
+            console.log("right wtf");
             velocity.y = velocity.y + -0.3;
-            velocity.x = velocity.x + 0.1;
+            velocity.x = velocity.x + 0.3;
             if(position.x > 780){
               console.log("slapped right");
               slapBall(positionPlayerRight);
