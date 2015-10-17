@@ -25,6 +25,7 @@
 
       //socket stuff
       var playersCount, playerPosition, positionPlayerLeft, positionPlayerRight;
+			var isBallComing = false;
 			socketCommands();
       onNewPlayer(function(playerPool){
         playersCount = playerPool.playersCount,
@@ -49,11 +50,21 @@
         sun = loadAnimation("/img/sun1.png","/img/sun2.png","/img/sun3.png");
       }
 
-      function setup(){
+      function setup() {
         createCanvas(800, 600);
         background(77, 210, 255);
         position = createVector(400,0);
-        velocity = createVector(0.0,0.9);
+        velocity = createVector(0.0,0.0);
+				onBallChanged(function(ballOptions) {
+					 console.log('cur:' + ballOptions.currentPosition);
+					 console.log('pos:' + playerPosition);
+					if (ballOptions.currentPosition == playerPosition) {
+        		velocity = createVector(0.0,5.0);
+						setTimeout(function () {
+							timesUp();
+						}, ballOptions.timeToNextPosition)
+					}
+				});
       }
 
       function draw() {
