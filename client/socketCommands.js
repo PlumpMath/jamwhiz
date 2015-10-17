@@ -1,6 +1,8 @@
 function socketCommands() {
   var ipurl = '192.168.3.234:9004';
   var socket = io.connect(ipurl);
+
+  socket.emit('my-msg', 'param');
 }
 
 var onNewPlayer = function(cb) {
