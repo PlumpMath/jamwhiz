@@ -19,6 +19,7 @@
 		<h1 id="timesup"></h1>
 		<script type="text/javascript">
 			// gestur detection saved in a global variable
+      var isSlapped = false;
 	    var detectedDirection;
 			gest.options.subscribeWithCallback(function(gesture) {
 				if (gesture.direction) {
@@ -55,8 +56,8 @@
       function preload(){
         sun = loadAnimation("/img/sun1.png","/img/sun2.png","/img/sun3.png");
       }
-
       function setup() {
+
         createCanvas(800, 600);
         background(77, 210, 255);
         position = createVector(400,0);
@@ -71,6 +72,7 @@
 							timesUp();
 						}, ballOptions.timeToNextPosition)
 					} else {
+            isSlapped = false;
 						position = createVector(400, 0);
 						velocity = createVector(0.0,0.0);
 					}
@@ -82,23 +84,27 @@
         background(77, 210, 255);
         if(position.y > 300 && position.y < 600){
           //this is the moment where you can hit the ball
-          if(detectedDirection == "Left"){
-            velocity.y = velocity.y + -0.1;
+          if(detectedDirection == "Left" && isSlapped === true){
+            velocity.y = velocity.y + -0.3;
             velocity.x = velocity.x + -0.1;
             if(position.x < 20){
+              console.log("slapped left");
               slapBall(positionPlayerLeft);
+              isSlapped = true;
             }
           }
-          if(detectedDirection == "Right"){
-            velocity.y = velocity.y + -0.1;
+          if(detectedDirection == "Right" && isSlapped === true){
+            velocity.y = velocity.y + -0.3;
             velocity.x = velocity.x + 0.1;
             if(position.x > 780){
+              console.log("slapped right");
               slapBall(positionPlayerRight);
+              isSlapped = true;
             }
           }
-          strokeWeight(2);
-          fill(127);
-          ellipse(position.x, position.y, 300, 300);
+          strokeWeight(1);
+          fill('red');
+          ellipse(position.x, position.y, 200, 200);
         }
 
         animation(sun,position.x, position.y);
