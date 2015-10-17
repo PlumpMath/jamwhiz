@@ -8,6 +8,7 @@
 		<script src="/client/js/gest.min.js"></script>
 		<script src="/client/js/p5.min.js"></script>
 		<script src="/client/js/p5.play.js"></script>
+		<script src="/client/js/p5.sound.js"></script>
 		<script src="/socket.io/socket.io.js" type="text/javascript"></script>
 		<script src="/client/js/socketCommands.js"></script>
 	</head>
@@ -29,14 +30,27 @@
       onNewPlayer(function(playerPool){
         playersCount = playerPool.playersCount,
         playersPosition = playerPool.playerPosition;
+		slapSound.play();
       });
       // animation
-      var sun;
+      var sun,
+		  slapSound;
       function preload(){
         sun = loadAnimation("/img/sun1.png","/img/sun2.png","/img/sun3.png");
+
+		//////////////////////
+		// Sound
+		slapSound = loadSound("/audio/smash.mp3");
+		song = loadSound("/audio/song2.mp3");
       }
 
       function setup(){
+		///////////////////////
+		// Sound
+		slapSound.setVolume(1.0);
+		song.setVolume(0.2);
+		song.play();
+
         createCanvas(800, 600);
         background(77, 210, 255);
         position = createVector(400,0);
@@ -54,10 +68,22 @@
           if(detectedDirection == "Left"){
             velocity.y = velocity.y + -0.1;
             velocity.x = velocity.x + -0.1;
+
+			///////////////////////////
+			// Sound
+			song.stop();
+			slapSound.play();
+			song.play();
           }
           if(detectedDirection == "Right"){
             velocity.y = velocity.y + -0.1;
             velocity.x = velocity.x + 0.1;
+
+			/////////////////////////////
+			// Sound
+			song.stop();
+			slapSound.play();
+			song.play();
           }
           strokeWeight(2);
           fill(127);
