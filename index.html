@@ -48,6 +48,9 @@
 					 console.log('pos:' + playerPosition);
 					if (ballOptions.currentPosition == playerPosition) {
         		velocity = createVector(0.0,5.0);
+						setTimeout(function () {
+							timesUp();
+						}, ballOptions.timeToNextPosition)
 					}
 				});
       }
