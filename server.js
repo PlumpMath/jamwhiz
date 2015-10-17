@@ -18,7 +18,7 @@ var Whiz = {
   clientsArray: [],
   ballPosition: 0,
   slapsCount: 0,
-  timeBetweenSlaps: 2000,
+  timeBetweenSlaps: 8000,
   timeToNewGame: 1000,
   getPlayerPosition: function (socketId) {
     // console.log(Whiz.clientsArray.lastIndexOf(socketId) + 1);
