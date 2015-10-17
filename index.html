@@ -64,12 +64,9 @@
 				onBallChanged(function(ballOptions) {
 					 console.log('cur:' + ballOptions.currentPosition);
 					 document.getElementById('count').innerHTML = ballOptions.count;
+					 document.getElementById('timesup').innerHTML = "";
 					if (ballOptions.currentPosition == playerPosition) {
         		velocity = createVector(0.0,5.0);
-						setTimeout(function () {
-							document.getElementById('timesup').innerHTML = "GAME OVER";
-							timesUp();
-						}, ballOptions.timeToNextPosition)
 					} else {
 						position = createVector(400, 0);
 						velocity = createVector(0.0,0.0);
@@ -95,7 +92,10 @@
           strokeWeight(2);
           fill(127);
           ellipse(position.x, position.y, 300, 300);
-        }
+        } else if (position.y < 900){
+					document.getElementById('timesup').innerHTML = "GAME OVER";
+					timesUp();
+				}
 
         animation(sun,position.x, position.y);
       }
