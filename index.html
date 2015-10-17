@@ -20,6 +20,7 @@
 		<h1 id="timesup"></h1>
 		<script type="text/javascript">
 			// gestur detection saved in a global variable
+      var isSlapped = false;
 	    var detectedDirection;
 			gest.options.subscribeWithCallback(function(gesture) {
 				if (gesture.direction) {
@@ -82,6 +83,7 @@
         		velocity = createVector(0.0,5.0);
 						isBallComing = true;
 					} else {
+            isSlapped = false;
 						position = createVector(400, 0);
 						velocity = createVector(0.0,0.0);
 						isBallComing = false;
@@ -95,7 +97,7 @@
         if(position.y > 300 && position.y < 600){
           //this is the moment where you can hit the ball
           if(detectedDirection == "Left"){
-            velocity.y = velocity.y + -0.1;
+            velocity.y = velocity.y + -0.3;
             velocity.x = velocity.x + -0.1;
 
 			///////////////////////////
@@ -104,10 +106,14 @@
 			slapSound.play();
 			song.play();
 
-			slapBall(positionPlayerLeft);
+            if(position.x < 20){
+              console.log("slapped left");
+              slapBall(positionPlayerLeft);
+              isSlapped = true;
+            }
           }
           if(detectedDirection == "Right"){
-            velocity.y = velocity.y + -0.1;
+            velocity.y = velocity.y + -0.3;
             velocity.x = velocity.x + 0.1;
 
 			/////////////////////////////
@@ -116,11 +122,15 @@
 			slapSound.play();
 			song.play();
 
-			slapBall(positionPlayerRight);
+            if(position.x > 780){
+              console.log("slapped right");
+              slapBall(positionPlayerRight);
+              isSlapped = true;
+            }
           }
-          strokeWeight(2);
-          fill(127);
-          ellipse(position.x, position.y, 300, 300);
+          strokeWeight(1);
+          fill('red');
+          ellipse(position.x, position.y, 200, 200);
         } else if (position.y < 900 && isBallComing){
 					document.getElementById('timesup').innerHTML = "GAME OVER";
 					timesUp();
